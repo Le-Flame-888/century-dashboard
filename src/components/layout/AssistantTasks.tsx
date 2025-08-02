@@ -53,15 +53,14 @@ const AssistantTasks = ({ isOpen, onClose }: AssistantTasksProps) => {
 
       {/* Sidebar */}
       <aside className={cn(
+        'fixed top-0 right-0 h-full w-80 bg-white border-l border-gray-200 overflow-y-auto z-60',
         'transition-all duration-300 ease-in-out',
-        'fixed top-0 right-0 h-full w-full max-w-sm bg-white border-l border-gray-200 overflow-y-auto z-60',
-        'lg:relative lg:max-w-none lg:border-l lg:z-auto',
-        {
-          'translate-x-0': isOpen,
-          'translate-x-full': !isOpen,
-          'lg:w-80': isOpen,
-          'lg:w-0 lg:invisible lg:opacity-0': !isOpen,
-        }
+        'lg:top-16 lg:h-[calc(100vh-4rem)]',
+        // Mobile state
+        isOpen ? 'translate-x-0' : 'translate-x-full',
+        // Desktop state - ensure it's fully off-screen when closed
+        'lg:translate-x-0',
+        isOpen ? 'lg:right-0' : 'lg:-right-80 lg:shadow-none'
       )}>
         <div className="p-6 h-full flex flex-col min-w-[320px]">
           <div className="flex items-center justify-between mb-6">

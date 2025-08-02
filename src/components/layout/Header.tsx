@@ -8,9 +8,15 @@ interface HeaderProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   toggleRightSidebar: () => void;
+  rightSidebarOpen: boolean;
 }
 
-const Header = ({ sidebarOpen, setSidebarOpen, toggleRightSidebar }: HeaderProps) => {
+const Header = ({ 
+  sidebarOpen, 
+  setSidebarOpen, 
+  toggleRightSidebar, 
+  rightSidebarOpen 
+}: HeaderProps) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -57,8 +63,14 @@ const Header = ({ sidebarOpen, setSidebarOpen, toggleRightSidebar }: HeaderProps
 
       {/* Right side - Actions */}
       <div className="flex items-center space-x-4">
-        <Button onClick={toggleRightSidebar} variant="ghost" size="icon" className="text-gray-500 hover:bg-gray-100">
-          <ChevronDown className="h-5 w-5" />
+        <Button 
+          onClick={toggleRightSidebar} 
+          variant="ghost" 
+          size="icon" 
+          className="text-gray-500 hover:bg-gray-100 transition-transform duration-200"
+          aria-label="Toggle right sidebar"
+        >
+          <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${!rightSidebarOpen ? 'transform rotate-180' : ''}`} />
         </Button>
         
         <Button variant="ghost" size="icon" className="relative text-gray-500 hover:bg-gray-100">
@@ -73,8 +85,7 @@ const Header = ({ sidebarOpen, setSidebarOpen, toggleRightSidebar }: HeaderProps
             </div>
             <div className="hidden md:block">
               <div className="flex items-center">
-                <span className="text-sm font-medium text-gray-700">{user?.name || 'Utilisateur'}</span>
-                <ChevronDown className="ml-1 h-4 w-4 text-gray-500" />
+                <span className="text-sm font-medium text-gray-700">{user?.name || 'Utilisateur'}</span>                
               </div>
               <p className="text-xs text-gray-500 capitalize">{user?.role || 'Utilisateur'}</p>
             </div>
